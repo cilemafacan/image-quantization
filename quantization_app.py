@@ -7,14 +7,13 @@ def quantize(image, original_bits, target_bits):
     """
     Kuantalama işlemi.
     Formül:  floor((Vi * (V'max - V'min) / (Vmax - Vmin)))
-
     image: PIL.Image.Image
     bits: int
     """
     np_image = np.array(image)
-    Vnew_max = 2 ** target_bits - 1
+    Vnew_max = (2 ** target_bits)
     Vnew_min = 0
-    Vmax = 2 ** original_bits - 1
+    Vmax = (2 ** original_bits)
     Vmin = 0
     quantized_image = np.floor((np_image * ((Vnew_max - Vnew_min) / (Vmax - Vmin))))
     return quantized_image
@@ -23,14 +22,13 @@ def de_quantize(image, original_bits, target_bits):
     """
     De-kuantalama işlemi.
     Formül:  floor((Vi * (Vmax - Vmin) / (V'max - V'min)))
-
     image: PIL.Image.Image
     bits: int
     """
     np_image = np.array(image)
-    Vnew_max = 2 ** target_bits - 1
+    Vnew_max = (2 ** target_bits) - 1
     Vnew_min = 0
-    Vmax = 2 ** original_bits - 1
+    Vmax = (2 ** original_bits) - 1
     Vmin = 0
     de_quantized_image = np.floor((np_image * ((Vmax - Vmin) / (Vnew_max - Vnew_min))))
     return de_quantized_image
